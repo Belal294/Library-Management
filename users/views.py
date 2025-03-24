@@ -4,21 +4,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.views import APIView
 from django.contrib.auth import login, logout
 from .models import CustomUser
-from .serializers import RegisterSerializer, LoginSerializer, UserSerializer
-
-class RegisterView(generics.CreateAPIView):
-    queryset = CustomUser.objects.all()
-    serializer_class = RegisterSerializer
-  
-
-class LoginView(APIView):
-  
-    def post(self, request):
-        serializer = LoginSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data
-        login(request, user)
-        return Response({"message": "Login successful"}, status=status.HTTP_200_OK)
+from .serializers import UserSerializer
 
 class LogoutView(APIView):
     def post(self, request):

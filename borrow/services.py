@@ -8,6 +8,10 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.decorators import action
 from .services import OrderService
 from rest_framework.response import Response
+# Create your views here.
+
+# serializer = OrderSerializer(order)
+# return Response(serializer)
 
 
 class CartViewSet(CreateModelMixin, RetrieveModelMixin, DestroyModelMixin, GenericViewSet):
@@ -18,7 +22,7 @@ class CartViewSet(CreateModelMixin, RetrieveModelMixin, DestroyModelMixin, Gener
         serializer.save(user=self.request.user)
 
     def get_queryset(self):
-        return Cart.objects.prefetch_related('items__books').filter(user=self.request.user)
+        return Cart.objects.prefetch_related('items__product').filter(user=self.request.user)
 
 
 class CartItemViewSet(ModelViewSet):
@@ -35,7 +39,7 @@ class CartItemViewSet(ModelViewSet):
         return {'cart_id': self.kwargs['cart_pk']}
 
     def get_queryset(self):
-        return CartItem.objects.select_related('books').filter(cart_id=self.kwargs['cart_pk'])
+        return CartItem.objects.select_related('product').filter(cart_id=self.kwargs['cart_pk'])
 
 
 class OrderViewset(ModelViewSet):
@@ -54,7 +58,7 @@ class OrderViewset(ModelViewSet):
             order, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response({'status': f"Order status updated to {request.data.get('status')}"})
+        return Response({'status': f'Order status updated to {request.data['status']}'})
 
     def get_permissions(self):
         if self.action in ['update_status', 'destroy']:
@@ -75,5 +79,5 @@ class OrderViewset(ModelViewSet):
 
     def get_queryset(self):
         if self.request.user.is_staff:
-            return Order.objects.prefetch_related('items__books').all()
-        return Order.objects.prefetch_related('items__books').filter(user=self.request.user)
+            return Order.objects.prefetch_related('items__product').all()
+        return Order.objects.prefetch_related('items__product').filter(user=self.request.user)
