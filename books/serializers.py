@@ -43,6 +43,7 @@ class BorrowSerializer(serializers.ModelSerializer):
 
 
 class BooksImageSerializer(serializers.ModelSerializer):
+    image = serializers.ImageField()
     class Meta:
         model = BooksImage
         fields = ['id','image']

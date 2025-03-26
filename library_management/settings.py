@@ -1,9 +1,16 @@
-
+import os
 from pathlib import Path
 from datetime import timedelta
+from decouple import config
+from dotenv import load_dotenv
+import dj_database_url
+
+import cloudinary
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv()
 
 
 # Quick-start development settings - unsuitable for production
@@ -13,14 +20,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-fqf2bs!-cv%bg$#vz_@$2b1mn7j!)e7)fim+ajr-wsm2#ah2k#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [".vercel.app", '127.0.0.1']
 
-
+STATIC_ROOT = BASE_DIR / "staticfiles"
 # Application definition
 
 INSTALLED_APPS = [
+    "whitenoise.runserver_nostatic",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,6 +54,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -74,19 +83,82 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'library_management.wsgi.application'
+WSGI_APPLICATION = 'library_management.wsgi.app'
 
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+
+
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres', 
+        'USER': 'postgres.ggroizbkitmdsraemmfm', 
+        'PASSWORD': 'CTwsXwuFeoqNl7wv',  
+        'HOST': 'aws-0-ap-southeast-1.pooler.supabase.com', 
+        'PORT': "5432",  
     }
 }
 
+
+
+cloudinary.config( 
+    cloud_name = config('cloud_name'), 
+    api_key = config('api_key'), 
+    api_secret = config('api_secret_key'), 
+    secure=True
+)
+
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudynaryStorage'
+
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': config('dbname'), 
+#         'USER': config('user'), 
+#         'PASSWORD': config('password'),  
+#         'HOST': config('host'), 
+#         'PORT': config('port'),  
+#     }
+# }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': "django.db.backends.postgresql_psycopg2",
+#         'NAME': "postgres", 
+#         'USER': "postgres.sageugkdjyjbxnezguwc", 
+#         'PASSWORD': "Didar4048@",  
+#         'HOST': "aws-0-ap-southeast-1.pooler.supabase.com", 
+#         'PORT': "5432",  
+#     }
+# }
+
+
+# DATABASES = {
+#     "default": dj_database_url.config(
+#         default=os.getenv("postgresql://postgres:Didar4048@@db.uexnhvtjcjvtgnjgsbry.supabase.co:5432/postgres"),
+#         conn_max_age=600,
+#         ssl_require=True
+#     )
+# }
 
 
 INTERNAL_IPS = [

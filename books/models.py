@@ -5,6 +5,7 @@ from datetime import timedelta
 from django.conf import settings
 from django.core.validators import MinValueValidator, MaxValueValidator, FileExtensionValidator
 from books.validators import validate_file_size
+from cloudinary.models import CloudinaryField
 
 User = get_user_model()
 
@@ -51,7 +52,8 @@ def get_due_date():
 
 class BooksImage(models.Model):
     books = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField(upload_to="books/images/", validators=[validate_file_size])
+    # image = models.ImageField(upload_to="books/images/", validators=[validate_file_size])
+    image = CloudinaryField('image')
 
 
 class Borrow(models.Model):

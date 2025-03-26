@@ -1,0 +1,122 @@
+[
+    {
+        "model": "books.book",
+        "pk": 1,
+        "fields": {
+            "title": "The Hobbit",
+            "author": 1,
+            "genre": 2,
+            "price": "15.99",
+            "status": "available",
+            "available_copies": 8
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 2,
+        "fields": {
+            "title": "1984",
+            "author": 2,
+            "genre": 1,
+            "price": "10.50",
+            "status": "available",
+            "available_copies": 5
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 3,
+        "fields": {
+            "title": "Dune",
+            "author": 1,
+            "genre": 2,
+            "price": "18.99",
+            "status": "borrowed",
+            "available_copies": 2
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 4,
+        "fields": {
+            "title": "To Kill a Mockingbird",
+            "author": 2,
+            "genre": 1,
+            "price": "12.00",
+            "status": "available",
+            "available_copies": 7
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 5,
+        "fields": {
+            "title": "Brave New World",
+            "author": 1,
+            "genre": 2,
+            "price": "9.99",
+            "status": "available",
+            "available_copies": 6
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 6,
+        "fields": {
+            "title": "Harry Potter and the Chamber of Secrets",
+            "author": 2,
+            "genre": 1,
+            "price": "14.99",
+            "status": "reserved",
+            "available_copies": 3
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 7,
+        "fields": {
+            "title": "Pride and Prejudice",
+            "author": 1,
+            "genre": 2,
+            "price": "11.25",
+            "status": "available",
+            "available_copies": 4
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 8,
+        "fields": {
+            "title": "Moby Dick",
+            "author": 2,
+            "genre": 1,
+            "price": "13.75",
+            "status": "borrowed",
+            "available_copies": 1
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 9,
+        "fields": {
+            "title": "The Catcher in the Rye",
+            "author": 1,
+            "genre": 2,
+            "price": "10.99",
+            "status": "available",
+            "available_copies": 9
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 10,
+        "fields": {
+            "title": "War and Peace",
+            "author": 2,
+            "genre": 1,
+            "price": "20.00",
+            "status": "reserved",
+            "available_copies": 2
+        }
+    }
+]
